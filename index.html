@@ -19,18 +19,31 @@
             document.getElementById("password");
         let password = passwordBox.value;
         let score=0;
+        let hasNumber=false;
+        for (let i = 0; i < password.length; i++) {
+            let ch = password[i];
+            
+            if(ch>="0"&& ch<= "9"){
+                hasNumber=true;
+            }
+        }
+        if(longEnough){
+            score++
+        }
+        if(hasNumber){
+            score++;
+        }
         let longEnough= password.length >= 8;
         console.log(longEnough);
         let result= document.getElementById("result");
         console.log("Password is: ", password);
-        if (longEnough){
-            result.textContent =
-                "Password is long enough";
-                score++;
-        }else{
-            result.textContent="Password is too short";
+        if (score <= 1) {
+            result.textContent = "Weak Password";
+        } else if (score == 2) {
+            result.textContent = "Medium Password";
+        } else {
+            result.textContent = "Strong Password";
         }
-        console.log(score)
     }
 </script>
 </body>
