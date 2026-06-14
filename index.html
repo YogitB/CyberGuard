@@ -10,6 +10,7 @@
 <button onclick="checkPassword()">
     Check Strength
 </button>
+<p id="result"></p>
 <script>
     console.log("Hello");
     function checkPassword() {
@@ -17,13 +18,19 @@
         let passwordBox =
             document.getElementById("password");
         let password = passwordBox.value;
+        let score=0;
+        let longEnough= password.length >= 8;
+        console.log(longEnough);
+        let result= document.getElementById("result");
         console.log("Password is: ", password);
-        if (password.length >=8){
-            console.log("Password is long enough")
+        if (longEnough){
+            result.textContent =
+                "Password is long enough";
+                score++;
+        }else{
+            result.textContent="Password is too short";
         }
-        else{
-            console.log("Password is too short")
-        }
+        console.log(score)
     }
 </script>
 </body>
