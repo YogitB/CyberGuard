@@ -18,6 +18,12 @@
             document.getElementById("password");
         let password = passwordBox.value;
         console.log("Password is: ", password);
+        if (password.length >=8){
+            console.log("Password is long enough")
+        }
+        else{
+            console.log("Password is too short")
+        }
     }
 </script>
 </body>
