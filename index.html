@@ -65,13 +65,13 @@
         let message="";
         console.log("Password is: ", password);
         if (score <= 1) {
-            result.textContent = "Weak Password";
+            result.textContent = "Weak Password\n"+message;
             result.style.color= "red";
         } else if (score == 2) {
-            result.textContent = "Medium Password";
+            result.textContent = "Medium Password\n"+message;
             result.style.color="orange";
         } else {
-            result.textContent = "Strong Password";
+            result.textContent = "Strong Password\n"+message;
             result.style.color="green";
         }
     }
