@@ -53,10 +53,13 @@
         console.log("Password is: ", password);
         if (score <= 1) {
             result.textContent = "Weak Password";
+            resul.style.color= "red";
         } else if (score == 2) {
             result.textContent = "Medium Password";
+            result.style.color="orange";
         } else {
             result.textContent = "Strong Password";
+            result.style.color="green";
         }
     }
 </script>
