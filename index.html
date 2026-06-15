@@ -5,6 +5,7 @@
         height:20px;
         width: 0%;
         background-color: red;
+        transition: width 0.3s;
     }
 </style>
 <body>
@@ -22,7 +23,8 @@
         
         let passwordBox =
             document.getElementById("password");
-        let password = passwordBox.value;
+        let result= document.getElementById("result");
+        let strengthBar=document.getElementById("strengthBar");        let password = passwordBox.value;
         let score=0;
         let message="";
         let hasNumber=false;
@@ -74,8 +76,9 @@
     if (!hasSpecial) {
         message += "• Add a special character (!@#$%^&*)<br>";
     }
+        strengthBar.style.width=(score*25)+"%";
+
         console.log(longEnough);
-        let result= document.getElementById("result");
         console.log("Password is: ", password);
         if (score <= 1) {
             result.innerHTML = "Weak Password<br>"+message;
