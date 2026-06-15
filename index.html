@@ -38,7 +38,7 @@
         width: 300px;
         height: 20px;
 
-        background-color: bisque;
+        background-color: rgb(196, 255, 236);
 
         border-radius: 10px;
 
@@ -123,12 +123,18 @@
         if (score <= 1) {
             result.innerHTML = "Weak Password<br>"+message;
             result.style.color= "red";
+            strengthBar.style.backgroundColor="red";
+
         } else if (score == 2) {
             result.innerHTML = "Medium Password<br>"+message;
             result.style.color="orange";
+            strengthBar.style.backgroundColor="orange";
+
         } else {
             result.innerHTML = "Strong Password<br>"+message;
             result.style.color="green";
+            strengthBar.style.backgroundColor="green";
+
         }
     }
 </script>
