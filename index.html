@@ -15,6 +15,7 @@
             document.getElementById("password");
         let password = passwordBox.value;
         let score=0;
+        let message="";
         let hasNumber=false;
         let hasUpper=false;
         let hasSpecial=false;
@@ -46,32 +47,31 @@
             score++;
         }
     if (password.length < 8) {
-        message += "• Make password at least 8 characters\n";
+        message += "• Make password at least 8 characters<br>";
     }
 
     if (!hasNumber) {
-        message += "• Add at least one number\n";
+        message += "• Add at least one number<br>";
     }
 
     if (!hasUpper) {
-        message += "• Add an uppercase letter\n";
+        message += "• Add an uppercase letter<br>";
     }
 
     if (!hasSpecial) {
-        message += "• Add a special character (!@#$%^&*)\n";
+        message += "• Add a special character (!@#$%^&*)<br>";
     }
         console.log(longEnough);
         let result= document.getElementById("result");
-        let message="";
         console.log("Password is: ", password);
         if (score <= 1) {
-            result.textContent = "Weak Password\n"+message;
+            result.innerHTML = "Weak Password\n"+message;
             result.style.color= "red";
         } else if (score == 2) {
-            result.textContent = "Medium Password\n"+message;
+            result.innerHTML = "Medium Password\n"+message;
             result.style.color="orange";
         } else {
-            result.textContent = "Strong Password\n"+message;
+            result.innerHTML = "Strong Password\n"+message;
             result.style.color="green";
         }
     }
