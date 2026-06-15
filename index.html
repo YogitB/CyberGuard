@@ -12,7 +12,6 @@
 </button>
 <p id="result"></p>
 <script>
-    console.log("Hello");
     function checkPassword() {
         
         let passwordBox =
@@ -20,20 +19,35 @@
         let password = passwordBox.value;
         let score=0;
         let hasNumber=false;
+        let hasUpper=false;
+        let hasSpecial=false;
         for (let i = 0; i < password.length; i++) {
             let ch = password[i];
+            if(ch>="A"&&ch<="Z"){
+                hasUpper=true;
+            }
+            if(ch=="!"&&ch=="@"&&ch=="#"&&ch=="$"&&ch=="%"&&ch=="^"&&ch=="&"&&ch=="*"){
+                hasSpecial=true;
+            }
             
             if(ch>="0"&& ch<= "9"){
                 hasNumber=true;
             }
         }
+        let longEnough= password.length >= 8;
+
         if(longEnough){
-            score++
+            score++;
+        }
+        if(hasSpecial){
+            score++;
         }
         if(hasNumber){
             score++;
         }
-        let longEnough= password.length >= 8;
+        if(hasUpper){
+            score++;
+        }
         console.log(longEnough);
         let result= document.getElementById("result");
         console.log("Password is: ", password);
