@@ -5,11 +5,8 @@
 <input
     type="password"
     id="password"
-    placeholder="Enter Password">
-<br>
-<button onclick="checkPassword()">
-    Check Strength
-</button>
+    placeholder="Enter Password"
+    oninput="checkPassword()">
 <p id="result"></p>
 <script>
     function checkPassword() {
@@ -26,7 +23,7 @@
             if(ch>="A"&&ch<="Z"){
                 hasUpper=true;
             }
-            if(ch=="!"&&ch=="@"&&ch=="#"&&ch=="$"&&ch=="%"&&ch=="^"&&ch=="&"&&ch=="*"){
+            if(ch=="!"||ch=="@"||ch=="#"||ch=="$"||ch=="%"||ch=="^"||ch=="&"||ch=="*"){
                 hasSpecial=true;
             }
             
@@ -53,7 +50,7 @@
         console.log("Password is: ", password);
         if (score <= 1) {
             result.textContent = "Weak Password";
-            resul.style.color= "red";
+            result.style.color= "red";
         } else if (score == 2) {
             result.textContent = "Medium Password";
             result.style.color="orange";
