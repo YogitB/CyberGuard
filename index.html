@@ -1,5 +1,12 @@
 <!DOCTYPE html>
 <html>
+<style>
+    #strengthBar{
+        height:20px;
+        width: 0%;
+        background-color: red;
+    }
+</style>
 <body>
 <h1>CyberGuardAI</h1>
 <input
@@ -7,8 +14,10 @@
     id="password"
     placeholder="Enter Password"
     oninput="checkPassword()">
+<div id="strengthBar"></div>
 <p id="result"></p>
 <script>
+
     function checkPassword() {
         
         let passwordBox =
@@ -48,6 +57,10 @@
         }
     if (password.length < 8) {
         message += "• Make password at least 8 characters<br>";
+    }
+    if(password.length==0){
+        result.innerHTML="";
+        return;
     }
 
     if (!hasNumber) {
