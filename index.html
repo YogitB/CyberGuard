@@ -45,8 +45,24 @@
         if(hasUpper){
             score++;
         }
+    if (password.length < 8) {
+        message += "• Make password at least 8 characters\n";
+    }
+
+    if (!hasNumber) {
+        message += "• Add at least one number\n";
+    }
+
+    if (!hasUpper) {
+        message += "• Add an uppercase letter\n";
+    }
+
+    if (!hasSpecial) {
+        message += "• Add a special character (!@#$%^&*)\n";
+    }
         console.log(longEnough);
         let result= document.getElementById("result");
+        let message="";
         console.log("Password is: ", password);
         if (score <= 1) {
             result.textContent = "Weak Password";
