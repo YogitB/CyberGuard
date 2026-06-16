@@ -79,12 +79,20 @@
 </style>
 <body>
 <div id="card">
-<h1>CyberGuardAI</h1>
-<input
-    type="password"
-    id="password"
-    placeholder="Enter Password"
-    oninput="checkPassword()">
+<h1 class="glow">CyberGuardAI</h1>
+<input type="password" id="password" placeholder="Enter Password">
+<br><br>
+<button onclick="checkPassword()" style="
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    background:#00ffd5;
+    color:black;
+    font-weight:bold;
+    cursor:pointer;
+">
+Analyze Password
+</button>
 <div id="barContainer">
     <div id="strengthBar"></div>
 </div>
@@ -102,7 +110,10 @@
         let scan= document.getElementById("scan");
         scan.textContent="Scanning password... ";
         let result= document.getElementById("result");
-        let strengthBar=document.getElementById("strengthBar");        let password = passwordBox.value;
+        let strengthBar=document.getElementById("strengthBar");        
+        let password = passwordBox.value;
+        let isCommon = commonPasswords.includes(password);
+
         let score=0;
         let message="";
         let hasNumber=false;
@@ -111,12 +122,6 @@
         let securityLevel = "";
 
         let hasSpecial=false;
-        entropy= entropy+ password.length*4;
-        let isCommon = commonPasswords.includes(password);
-        if (hasLower) entropy += 5;
-        if (hasUpper) entropy += 5;
-        if (hasNumber) entropy += 5;
-        if (hasSpecial) entropy += 10;
         if (password.length==0){
             strengthBar.style.width="0%";
             strengthBar.style.backgroundColor="gray";
@@ -140,18 +145,17 @@
                 hasNumber=true;
             }
         }
+        entropy= entropy+ password.length*4;
+
+        if (hasLower) entropy += 5;
+        if (hasUpper) entropy += 5;
+        if (hasNumber) entropy += 5;
+        if (hasSpecial) entropy += 10;
         let longEnough= password.length >= 8;
-        if(entropy<30){
-            securityLevel="CRITICAL";
-
-        } else if (entropy <50){
-            securityLevel="WEAK";
-        } else if (entropy<70){
-            securityLevel="MID";
-
-        }else{
-            securityLevel="STRONG";
-        }
+        if (entropy < 40) securityLevel = "CRITICAL";
+        else if (entropy < 60) securityLevel = "WEAK";
+        else if (entropy < 90) securityLevel = "MID";
+        else securityLevel = "STRONG";
         if(longEnough){
             score++;
         }
@@ -196,23 +200,32 @@
         setTimeout(() => {
         scan.textContent = "";
             if (score <= 1) {
-            result.innerHTML += "<br>Security Level: " + securityLevel;
-            result.innerHTML = "Weak Password<br>"+message;
+           result.innerHTML =
+            "Medium Password<br>" +
+            message +
+            "<br>Security Level: " + securityLevel+
+    "<br>Entropy: " + entropy;;
             result.style.color= "red";
             result.classList.add("glow");
             strengthBar.style.backgroundColor="red";
             tip.textContent="Tip: Use 12+ characters with mixed symbols. ";
         } else if (score == 2) {
-            result.innerHTML += "<br>Security Level: " + securityLevel;
-            result.innerHTML = "Medium Password<br>"+message;
+           result.innerHTML =
+            "Medium Password<br>" +
+            message +
+            "<br>Security Level: " + securityLevel +
+    "<br>Entropy: " + entropy;;
             result.style.color="orange";
             result.classList.add("glow");
             strengthBar.style.backgroundColor="orange";
             tip.textContent="Tip: Add uppercase + numbers for better security. ";
 
         } else {
-            result.innerHTML += "<br>Security Level: " + securityLevel;
-            result.innerHTML = "Strong Password<br>"+message;
+            result.innerHTML =
+                "Strong Password<br>" +
+                message +
+                "<br>Security Level: " + securityLevel+
+    "<br>Entropy: " + entropy;;
             result.style.color="green";
             result.classList.add("glow");
             strengthBar.style.backgroundColor="green";
