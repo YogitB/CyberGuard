@@ -90,14 +90,17 @@
 </div>
 <p id="result"></p>
 <p id="tip"></p>
+<p id="scan"></p>
 <script>
 
     function checkPassword() {
+        let entropy =0;
         let commonPasswords=["123456","password","qwerty","1111111","abc123"];
         let passwordBox =
             document.getElementById("password");
         let tip = document.getElementById("tip");
-
+        let scan= document.getElementById("scan");
+        scan.textContent="Scanning password... ";
         let result= document.getElementById("result");
         let strengthBar=document.getElementById("strengthBar");        let password = passwordBox.value;
         let score=0;
@@ -105,10 +108,15 @@
         let hasNumber=false;
         let hasUpper=false;
         let hasLower= false;
+        let securityLevel = "";
 
         let hasSpecial=false;
+        entropy= entropy+ password.length*4;
         let isCommon = commonPasswords.includes(password);
-
+        if (hasLower) entropy += 5;
+        if (hasUpper) entropy += 5;
+        if (hasNumber) entropy += 5;
+        if (hasSpecial) entropy += 10;
         if (password.length==0){
             strengthBar.style.width="0%";
             strengthBar.style.backgroundColor="gray";
@@ -133,7 +141,17 @@
             }
         }
         let longEnough= password.length >= 8;
+        if(entropy<30){
+            securityLevel="CRITICAL";
 
+        } else if (entropy <50){
+            securityLevel="WEAK";
+        } else if (entropy<70){
+            securityLevel="MID";
+
+        }else{
+            securityLevel="STRONG";
+        }
         if(longEnough){
             score++;
         }
@@ -175,24 +193,35 @@
 
         console.log(longEnough);
         console.log("Password is: ", password);
-        if (score <= 1) {
+        setTimeout(() => {
+        scan.textContent = "";
+            if (score <= 1) {
+            result.innerHTML += "<br>Security Level: " + securityLevel;
             result.innerHTML = "Weak Password<br>"+message;
             result.style.color= "red";
+            result.classList.add("glow");
             strengthBar.style.backgroundColor="red";
             tip.textContent="Tip: Use 12+ characters with mixed symbols. ";
         } else if (score == 2) {
+            result.innerHTML += "<br>Security Level: " + securityLevel;
             result.innerHTML = "Medium Password<br>"+message;
             result.style.color="orange";
+            result.classList.add("glow");
             strengthBar.style.backgroundColor="orange";
             tip.textContent="Tip: Add uppercase + numbers for better security. ";
 
         } else {
+            result.innerHTML += "<br>Security Level: " + securityLevel;
             result.innerHTML = "Strong Password<br>"+message;
             result.style.color="green";
+            result.classList.add("glow");
             strengthBar.style.backgroundColor="green";
             tip.textContent="Great Password";
 
         }
+            // ALL your existing result code goes here
+        }, 500);
+        
     }
 </script>
 </div>
