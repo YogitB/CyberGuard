@@ -1,48 +1,80 @@
 <!DOCTYPE html>
 <html>
 <style>
-    #strengthBar{
-        height:20px;
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: radial-gradient(circle at top, #0f172a, #000000);
+        font-family: Arial, sans-serif;
+    }
+
+    #card {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 30px;
+        border-radius: 16px;
+        width: 420px;
+        box-shadow: 0 0 30px rgba(0, 255, 200, 0.08);
+        text-align: center;
+    }
+
+    h1 {
+        color: #00ffd5;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+    }
+
+    input {
+        width: 90%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        margin-bottom: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+    }
+
+    input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    #barContainer {
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        overflow: hidden;
+        margin-top: 10px;
+    }
+
+    #strengthBar {
+        height: 100%;
         width: 0%;
         background-color: red;
         transition: width 0.4s ease, background-color 0.4s ease;
-        margin-top: 10px;
     }
-    body{
-        background-color: #000000;
-        display:flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    h1{
-        color: #1f2937;
-        font-family: Arial, sans-serif;
-    }
-    input{
-        padding: 10px;
-        width: 300px;
+
+    #result {
+        margin-top: 15px;
         font-size: 16px;
+        font-weight: bold;
     }
-    #card {
-        background-color: white;
 
-        padding: 30px;
-
-        border-radius: 12px;
-
-        width: 400px;
-
-        margin-top: 50px;
+    #tip {
+        margin-top: 10px;
+        font-size: 13px;
+        color: rgba(255,255,255,0.7);
     }
-    #barContainer {
-        width: 300px;
-        height: 20px;
 
-        background-color: rgb(196, 255, 236);
-
-        border-radius: 10px;
-
-        overflow: hidden;
+    .glow {
+        text-shadow: 0 0 10px rgba(0,255,213,0.5);
     }
 </style>
 <body>
@@ -62,8 +94,6 @@
 
     function checkPassword() {
         let commonPasswords=["123456","password","qwerty","1111111","abc123"];
-        let isCommon = commonPasswords.includes(password);
-        let hasLower= false;
         let passwordBox =
             document.getElementById("password");
         let tip = document.getElementById("tip");
@@ -74,7 +104,11 @@
         let message="";
         let hasNumber=false;
         let hasUpper=false;
+        let hasLower= false;
+
         let hasSpecial=false;
+        let isCommon = commonPasswords.includes(password);
+
         if (password.length==0){
             strengthBar.style.width="0%";
             strengthBar.style.backgroundColor="gray";
@@ -117,6 +151,7 @@
         }
         if (isCommon) {
         score = 0;
+        message=" This is a commonly used password. Choose something which is more secure.<br>";
         }
     if (password.length < 8) {
         message += "• Make password at least 8 characters<br>";
