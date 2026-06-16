@@ -60,7 +60,8 @@
 <script>
 
     function checkPassword() {
-        
+        let commonPasswords=["123456","password","qwerty","1111111","abc123"]
+        let hasLower= false;
         let passwordBox =
             document.getElementById("password");
         let result= document.getElementById("result");
@@ -70,6 +71,13 @@
         let hasNumber=false;
         let hasUpper=false;
         let hasSpecial=false;
+        if (password.length==0){
+            strengthBar.style.width="0%";
+            strengthBar.style.backgroundColor="gray";
+            result.innerHTML="Enter a password";
+            result.style.color="gray";
+            return;
+        }
         for (let i = 0; i < password.length; i++) {
             let ch = password[i];
             if(ch>="A"&&ch<="Z"){
@@ -77,6 +85,9 @@
             }
             if(ch=="!"||ch=="@"||ch=="#"||ch=="$"||ch=="%"||ch=="^"||ch=="&"||ch=="*"){
                 hasSpecial=true;
+            }
+            if(ch>="a"&& ch<="z"){
+                hasLower=true;
             }
             
             if(ch>="0"&& ch<= "9"){
@@ -86,6 +97,9 @@
         let longEnough= password.length >= 8;
 
         if(longEnough){
+            score++;
+        }
+        if(hasLower){
             score++;
         }
         if(hasSpecial){
@@ -100,10 +114,6 @@
     if (password.length < 8) {
         message += "• Make password at least 8 characters<br>";
     }
-    if(password.length==0){
-        result.innerHTML="";
-        return;
-    }
 
     if (!hasNumber) {
         message += "• Add at least one number<br>";
@@ -116,7 +126,7 @@
     if (!hasSpecial) {
         message += "• Add a special character (!@#$%^&*)<br>";
     }
-        strengthBar.style.width=(score*25)+"%";
+        strengthBar.style.width=(score*20)+"%";
 
         console.log(longEnough);
         console.log("Password is: ", password);
